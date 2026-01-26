@@ -1580,7 +1580,14 @@ sub checkMonsterCleanness {
 		return 1;
 	}
 
+	my $killSteal = $config{attackAuto_killSteal};
+
 	if ($config{aggressiveAntiKS}) {
+
+		if ($killSteal) {
+			warning T("Config. aggressiveAntiKS is enabled, attackAuto_killSteal is ignored!\n");
+		}
+
 		# Aggressive anti-KS mode, for people who are paranoid about not kill stealing.
 
 		# If we attacked the monster first, do not drop it, we are being KSed
@@ -1598,6 +1605,9 @@ sub checkMonsterCleanness {
 			return 0;
 		}
 	}
+
+	# If kill stealing is allowed - always attack, don't think about consequences
+	return 1 if $killSteal;
 
 	# If monster attacked/missed you
 	return 1 if ($monster->{'dmgToYou'} || $monster->{'missedYou'} || $monster->{'castOnToYou'});
