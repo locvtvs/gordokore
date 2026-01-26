@@ -20,6 +20,13 @@ poseidonTimeout 5
 bindIp
 forceMapIP
 
+
+# Config. para usar o GordOPK
+# O mesmo IP secundário definido
+ip_socket
+# A porta usada no socketPort da DLL
+port_socket
+
 # 1 = hook into RO client, 2 = Act as stand-alone proxy, proxy = act as true proxy
 # https://openkore.com/wiki/XKore
 XKore 0
@@ -233,10 +240,6 @@ route_removeMissingPortals 0
 route_tryToGuessMissingPortalByDistance 1
 route_reAddMissingPortals 1
 route_randomFactor 0
-
-# Maximum walking path distance (client setting). Default: 17
-# This corresponds to max_walk_path in server configuration
-maxWalkPathDistance 17
 
 runFromTarget 0
 runFromTarget_inAdvance 0
