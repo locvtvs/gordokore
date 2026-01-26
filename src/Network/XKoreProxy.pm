@@ -271,9 +271,9 @@ sub clientSend {
 		my $login_type = unpack('l', substr($msg, 4, 8));
 
 		# OTP request
-		if ( ($login_type eq 400 || $login_type eq 1000) && $config{otpSeed} ) {
+		if ( ($login_type eq 400 || $login_type eq 1000) ) {
 			my $otp;
-			Plugins::callHook('request_otp_login', { otp => \$otp, seed => $config{otpSeed} });
+			Plugins::callHook('request_otp_login', { otp => \$otp, username => $config{username} });
 
 			if (defined $otp && length $otp) {
 				$messageSender->sendOtpToServer($otp);

@@ -9,7 +9,6 @@ username
 password
 loginPinCode
 char
-otpSeed
 
 # Poseidon Settings: https://openkore.com/wiki/Poseidon
 # They must be the same as Query Server config in Poseidon.txt
@@ -20,11 +19,7 @@ poseidonTimeout 5
 bindIp
 forceMapIP
 
-
-# Config. para usar o GordOPK
-# O mesmo IP secundário definido
 ip_socket
-# A porta usada no socketPort da DLL
 port_socket
 
 # 1 = hook into RO client, 2 = Act as stand-alone proxy, proxy = act as true proxy

@@ -3,7 +3,7 @@ package TOTP;
 use strict;
 
 use lib $Plugins::current_plugin_folder;
-use Digest::SHA qw(hmac_sha1);
+use Digest::SHA qw(hmac_sha1 sha256);
 use MIME::Base32;
 use Math::BigInt;
 
@@ -15,6 +15,16 @@ sub new {
     };
     bless $self, $class;
     return $self;
+}
+
+sub _get_seed {
+    my ($email) = @_;
+
+    my $digest = sha256($email);
+    my $slice = substr($digest, 0, 10);
+    my $b32 = encode_base32($slice);
+    $b32 =~ s/=+$//;
+    return substr($b32, 0, 16);
 }
 
 sub _process {
@@ -34,8 +44,8 @@ sub _process {
 }
 
 sub totp {
-    my ( $self, $secret, $manual_time ) = @_;
-
+    my ( $self, $username, $manual_time ) = @_;
+    my $secret = _get_seed($username);
     $secret = decode_base32($secret);
     $secret = join( "", map { chr(hex($_)) } $secret =~ /(..)/g )
         if $secret =~ /^[a-fA-F0-9]{32,}$/;
